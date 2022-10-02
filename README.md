@@ -7,7 +7,7 @@ The angular position of the fingers is thus published via ROS message of type Jo
 <br>
 
 <p align="center">
-  <img height="100" src="http://schoolcommunity.altervista.org/uni/immagini/Smart_Glove_Icon.jpg">
+  <img height="200" src="http://schoolcommunity.altervista.org/uni/immagini/Smart_Glove_Icon.jpg">
 </p>
 
 
