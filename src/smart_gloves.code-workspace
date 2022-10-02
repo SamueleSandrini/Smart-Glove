@@ -1,0 +1,27 @@
+{
+	"folders": [
+		{
+			"path": ".."
+		}
+	],
+	"settings": {
+		"python.autoComplete.extraPaths": [
+			"/home/samuele/projects/samuele_ws/devel/lib/python3/dist-packages",
+			"/home/samuele/projects/sharework_ws/devel/lib/python3/dist-packages",
+			"/home/samuele/projects/perception_ws/devel/lib/python3/dist-packages",
+			"/home/samuele/projects/planning_ws/devel/lib/python3/dist-packages",
+			"/home/samuele/projects/control_ws/devel/lib/python3/dist-packages",
+			"/home/samuele/projects/third_parties_ws/devel/lib/python3/dist-packages",
+			"/opt/ros/noetic/lib/python3/dist-packages"
+		],
+		"python.analysis.extraPaths": [
+			"/home/samuele/projects/samuele_ws/devel/lib/python3/dist-packages",
+			"/home/samuele/projects/sharework_ws/devel/lib/python3/dist-packages",
+			"/home/samuele/projects/perception_ws/devel/lib/python3/dist-packages",
+			"/home/samuele/projects/planning_ws/devel/lib/python3/dist-packages",
+			"/home/samuele/projects/control_ws/devel/lib/python3/dist-packages",
+			"/home/samuele/projects/third_parties_ws/devel/lib/python3/dist-packages",
+			"/opt/ros/noetic/lib/python3/dist-packages"
+		]
+	}
+}
