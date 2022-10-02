@@ -19,7 +19,8 @@ The launch file smart_glove.launch is in charge to make the system run in easy w
 
 ## Requirements
 - **WebSocket Client Library** (follow this link if needed https://websocket-client.readthedocs.io/en/latest/installation.html):
-  ```pip3 install websocket-client
+  ```
+  pip3 install websocket-client
   ```
 
 ## Maintainers
