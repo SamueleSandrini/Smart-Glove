@@ -15,8 +15,8 @@ from std_msgs.msg import Float64
 class SmartGlove:
     ip_address_: str
     lambda_: float
-    state_obs_initialized_: field(default=False, init=False)
-    finger_joint_state_hat: field(default_factory=None, INIT=False)
+    state_obs_initialized_: bool = field(default=False, init=False)
+    finger_joint_state_hat_: JointState = field(default=None, init=False)
 
     def __post_init__(self):
         """ Constructor of SmartGlove object, called after __init__
@@ -29,6 +29,7 @@ class SmartGlove:
         """
         rospy.loginfo("Smart Glove Object created")
         self.finger_joint_state_pub_ = rospy.Publisher("smart_glove", JointState, queue_size=10)
+        self.finger_joint_state_pub_hat_ = rospy.Publisher("smart_glove_hat", JointState, queue_size=10)
 
         # Check ip address
         try:
@@ -61,14 +62,15 @@ class SmartGlove:
         finger_joint_state_ = JointState()
         finger_joint_state_.header.stamp = rospy.Time.now()
         finger_joint_state_.header.frame_id = "base"
-        finger_joint_state_.name = data_received.keys()
-        finger_joint_state_.position = data_received.values()
-        if not self.state_obs_initialized:
+        finger_joint_state_.name = list(data_received.keys())
+        finger_joint_state_.position = list(data_received.values())
+        if not self.state_obs_initialized_:
             self.initialize_state_observer(finger_joint_state_)
         else:
             self.update_state_observer(finger_joint_state_)
         # Publish finger_joint_state
-        self.finger_joint_state_pub_.publish(self.finger_joint_state_hat)
+        self.finger_joint_state_pub_hat_.publish(self.finger_joint_state_hat_)
+        self.finger_joint_state_pub_.publish(finger_joint_state_)
 
     def __on_close(self):
         """Private method called by WebsocketApp when is disconnected"""
@@ -81,12 +83,12 @@ class SmartGlove:
         """Public method that make close the connection with the glove"""
 
     def initialize_state_observer(self, finger_joint_state_: JointState) -> bool:
-        self.finger_joint_state_hat = self.finger_joint_state_.copy()
+        self.finger_joint_state_hat_ = finger_joint_state_
         self.state_obs_initialized_ = True
 
     def update_state_observer(self, finger_joint_state_: JointState):
-        for n_finger, finger_joint in enumerate(self.finger_joint_state_.position):
-            self.finger_joint_state_hat.position[n_finger] = self.finger_joint_state_hat.position[n_finger] + \
-                                                             self.lambda_ * \
-                                                             (finger_joint - self.finger_joint_state_hat.position[
-                                                                 n_finger])
+        for n_finger, finger_joint in enumerate(finger_joint_state_.position):
+            self.finger_joint_state_hat_.position[n_finger] = self.finger_joint_state_hat_.position[n_finger] + \
+                                                              self.lambda_ * \
+                                                              (finger_joint - self.finger_joint_state_hat_.position[
+                                                                  n_finger])

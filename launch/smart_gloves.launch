@@ -1,13 +1,14 @@
 <launch>
-    <arg name="ip_address_left_glove" default="192.168.43.108"/>
+    <arg name="ip_address_left_glove" default="192.168.126.77"/>
     <arg name="smart_glove_ns" default="left"/>
+    <arg name="observer_gain" default="0.3"/>
 
     <!-- <arg name="ip_address_right_glove" default="192.168.x.y"/> -->
 
 
     <node name="Smart_Glove" pkg="smart_gloves" type="smart_glove_node.py"  output="screen">
         <param name="smart_glove_ns" value="$(arg smart_glove_ns)"/>
-        <param name="ip_address" value="$(arg ip_address_left_glove)"/>
+        <param name="observer_gain" value="$(arg observer_gain)"/>
     </node>
 
 </launch>
