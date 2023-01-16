@@ -46,11 +46,11 @@ class SmartGlove:
 
         self.ws.run_forever()
 
-    def __on_open(self):
+    def __on_open(self, _):
         """Private function called by WebsocketApp when started"""
         rospy.loginfo("Connection started")
 
-    def __on_message(self, ws, message):
+    def __on_message(self, _, message):
         """ Private function called by WebsocketApp when a new message comes on websocket 
 
         Args:
@@ -64,17 +64,19 @@ class SmartGlove:
         finger_joint_state_.header.frame_id = "base"
         finger_joint_state_.name = list(data_received.keys())
         finger_joint_state_.position = list(data_received.values())
+
         if not self.state_obs_initialized_:
             self.initialize_state_observer(finger_joint_state_)
         else:
             self.update_state_observer(finger_joint_state_)
+
         # Publish finger_joint_state
         self.finger_joint_state_pub_hat_.publish(self.finger_joint_state_hat_)
         self.finger_joint_state_pub_.publish(finger_joint_state_)
 
     def __on_close(self):
         """Private method called by WebsocketApp when is disconnected"""
-        rospy.loginfo("Cljson_dataosed the connection")
+        rospy.loginfo("Connection Closed")
 
     def run_glove_connection(self):
         """Public method that make start the connection with the glove"""
