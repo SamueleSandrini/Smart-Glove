@@ -17,7 +17,7 @@ def main():
     
     rospy.loginfo(ip_address)
     try:
-        smart_glove = SmartGlove(ip_address)
+        smart_glove = SmartGlove(ip_address, 0.7)
         print(smart_glove)
     except ValueError:
         print("Error")
